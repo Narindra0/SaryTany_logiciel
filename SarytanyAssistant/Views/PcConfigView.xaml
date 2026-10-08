@@ -1,0 +1,123 @@
+<UserControl x:Class="SarytanyAssistant.Views.PcConfigView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="24,20,24,16" Background="{StaticResource Bg}">
+        <StackPanel x:Name="Body" MaxWidth="700" HorizontalAlignment="Left">
+            <TextBlock Text="Configuration PC" Style="{StaticResource PageTitle}" Margin="0,0,0,14"/>
+
+            <!-- ================= CARTE 1 : RESEAU ================= -->
+            <Border Style="{StaticResource Card}" Padding="16,12,16,16" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="Reseau" Style="{StaticResource CardTitle}" Margin="0,0,0,10"/>
+                    <TextBlock Text="Carte reseau" Style="{StaticResource FieldLabel}"/>
+                    <DockPanel Margin="0,4,0,0">
+                        <Button x:Name="BtnRefreshAdapters" DockPanel.Dock="Right" Content="Rafraichir"
+                                Style="{StaticResource TinyButton}" Width="92" Margin="8,0,0,0" Click="RefreshAdapters_Click"/>
+                        <ComboBox x:Name="CmbAdapter" Style="{StaticResource FieldCombo}"/>
+                    </DockPanel>
+                    <CheckBox x:Name="ChkIPv6" Content="Desactiver IPv6 (Protocole Internet Version 6)"
+                              Style="{StaticResource FieldCheck}" IsChecked="True" Margin="0,12,0,0"/>
+                    <CheckBox x:Name="ChkValidate" Content="Valider les parametres en quittant"
+                              Style="{StaticResource FieldCheck}" IsChecked="True" Margin="0,6,0,0"/>
+                    <Grid Margin="0,12,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="DNS prefere" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="TxtDns1" Style="{StaticResource Field}" Margin="0,4,0,0"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="DNS auxiliaire" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="TxtDns2" Style="{StaticResource Field}" Margin="0,4,0,0"/>
+                        </StackPanel>
+                        <Button x:Name="BtnApplyNet" Grid.Column="3" Content="Appliquer la configuration reseau"
+                                Style="{StaticResource PrimaryButton}" Width="272" Height="38"
+                                VerticalAlignment="Bottom" Margin="16,0,0,0" Click="ApplyNet_Click"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- ================= CARTE 2 : DOMAINE ACTIVE DIRECTORY ================= -->
+            <Border Style="{StaticResource Card}" Padding="16,12,16,16" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="Domaine Active Directory" Style="{StaticResource CardTitle}" Margin="0,0,0,10"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,0,12">
+                            <TextBlock Text="Nom du poste" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="TxtComputer" Style="{StaticResource Field}" Margin="0,4,0,0"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="2" Margin="0,0,0,12">
+                            <TextBlock Text="Domaine" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="TxtDomain" Style="{StaticResource Field}" Margin="0,4,0,0"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="0">
+                            <TextBlock Text="Compte administrateur" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="TxtDomainUser" Style="{StaticResource Field}" Margin="0,4,0,0"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="2">
+                            <TextBlock Text="Mot de passe" Style="{StaticResource FieldLabel}"/>
+                            <PasswordBox x:Name="TxtDomainPwd" Style="{StaticResource FieldPwd}" Margin="0,4,0,0"/>
+                        </StackPanel>
+                    </Grid>
+                    <CheckBox x:Name="ChkSim" Content="Mode simulation (aucune modification)"
+                              Style="{StaticResource FieldCheck}" Margin="0,14,0,0"/>
+                    <TextBlock Text="Le redemarrage est reporte : redemarrez le poste quand vous etes pret."
+                               Foreground="{StaticResource Muted}" FontSize="11" Margin="0,10,0,0"/>
+                    <Button x:Name="BtnJoin" Content="Renommer et joindre le domaine"
+                            Style="{StaticResource PrimaryButton}" Width="320" Height="38"
+                            HorizontalAlignment="Left" Margin="0,10,0,0" Click="Join_Click"/>
+                </StackPanel>
+            </Border>
+
+            <!-- ================= CARTE 3 : VERIFICATIONS ET PROTECTIONS ================= -->
+            <Border Style="{StaticResource Card}" Padding="16,12,16,16" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="Verifications et protections" Style="{StaticResource CardTitle}" Margin="0,0,0,10"/>
+                    <TextBlock x:Name="LblChkDomain" Text="Jonction AD : non verifiee" Foreground="{StaticResource Muted}" Margin="0,0,0,6"/>
+                    <TextBlock x:Name="LblChkDns" Text="Connectivite DNS : non verifiee" Foreground="{StaticResource Muted}" Margin="0,0,0,6"/>
+                    <TextBlock x:Name="LblProtState" Text="Protections : non verifiees" Foreground="{StaticResource Muted}" Margin="0,0,0,10"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="BtnPreChecks" Content="Verifier" Style="{StaticResource TinyButton}"
+                                Width="100" Click="PreChecks_Click"/>
+                        <Button x:Name="BtnRestore" Content="Reactiver les protections" Style="{StaticResource TinyButton}"
+                                Width="190" Margin="10,0,0,0" Click="Restore_Click"/>
+                        <TextBlock Text="Se coupent automatiquement avant chaque installation."
+                                   Foreground="{StaticResource Muted}" FontSize="11" VerticalAlignment="Center" Margin="14,0,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- ================= JOURNAL ================= -->
+            <Border Style="{StaticResource Card}" Background="{StaticResource LogBg}" Padding="16,12,16,12" Margin="0,0,0,8">
+                <StackPanel>
+                    <TextBlock Text="JOURNAL D'EXECUTION - CONFIGURATION PC" Style="{StaticResource CardTitle}"
+                               Foreground="{StaticResource Muted}" Margin="0,0,0,8"/>
+                    <ScrollViewer x:Name="LogScroll" Height="140" VerticalScrollBarVisibility="Auto">
+                        <ItemsControl x:Name="LogLines">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontFamily="Consolas" FontSize="12" Foreground="{Binding Brush}">
+                                        <Run Text="{Binding Time, Mode=OneWay}"/><Run Text="  "/><Run Text="{Binding Text, Mode=OneWay}"/>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

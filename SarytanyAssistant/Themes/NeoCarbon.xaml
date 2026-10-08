@@ -1,0 +1,221 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ============ PALETTE NEO-CARBON SARYTANY (port de src\40-Theme.ps1) ============ -->
+    <Color x:Key="C_Bg">#F0F3F7</Color>
+    <Color x:Key="C_Title">#0F172A</Color>
+    <Color x:Key="C_Sidebar">#161E32</Color>
+    <Color x:Key="C_SidebarHover">#232D46</Color>
+    <Color x:Key="C_Accent">#0072D2</Color>
+    <Color x:Key="C_AccentHi">#1E8CE6</Color>
+    <Color x:Key="C_Green">#10B981</Color>
+    <Color x:Key="C_Amber">#F59E0B</Color>
+    <Color x:Key="C_Red">#EF4444</Color>
+    <Color x:Key="C_Text">#0F172A</Color>
+    <Color x:Key="C_Muted">#64748B</Color>
+    <Color x:Key="C_Slate">#94A3B8</Color>
+    <Color x:Key="C_Card">#FFFFFF</Color>
+    <Color x:Key="C_Log">#151921</Color>
+    <Color x:Key="C_LogText">#A5B2C4</Color>
+    <Color x:Key="C_Separator">#E2E8F0</Color>
+
+    <SolidColorBrush x:Key="Bg" Color="{StaticResource C_Bg}"/>
+    <SolidColorBrush x:Key="TitleBar" Color="{StaticResource C_Title}"/>
+    <SolidColorBrush x:Key="Sidebar" Color="{StaticResource C_Sidebar}"/>
+    <SolidColorBrush x:Key="SidebarHover" Color="{StaticResource C_SidebarHover}"/>
+    <SolidColorBrush x:Key="Accent" Color="{StaticResource C_Accent}"/>
+    <SolidColorBrush x:Key="AccentHi" Color="{StaticResource C_AccentHi}"/>
+    <SolidColorBrush x:Key="Green" Color="{StaticResource C_Green}"/>
+    <SolidColorBrush x:Key="Amber" Color="{StaticResource C_Amber}"/>
+    <SolidColorBrush x:Key="Red" Color="{StaticResource C_Red}"/>
+    <SolidColorBrush x:Key="Text" Color="{StaticResource C_Text}"/>
+    <SolidColorBrush x:Key="Muted" Color="{StaticResource C_Muted}"/>
+    <SolidColorBrush x:Key="Slate" Color="{StaticResource C_Slate}"/>
+    <SolidColorBrush x:Key="CardBg" Color="{StaticResource C_Card}"/>
+    <SolidColorBrush x:Key="LogBg" Color="{StaticResource C_Log}"/>
+    <SolidColorBrush x:Key="LogText" Color="{StaticResource C_LogText}"/>
+    <SolidColorBrush x:Key="Separator" Color="{StaticResource C_Separator}"/>
+    <SolidColorBrush x:Key="SecondaryBtn" Color="#E8EDF4"/>
+    <SolidColorBrush x:Key="SecondaryBtnHover" Color="#D6DEE8"/>
+
+    <!-- ============ POLICES ============ -->
+    <FontFamily x:Key="UiFont">Segoe UI</FontFamily>
+    <FontFamily x:Key="MonoFont">Consolas</FontFamily>
+    <Style x:Key="PageTitle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource UiFont}"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{StaticResource Text}"/>
+    </Style>
+    <Style x:Key="CardTitle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource UiFont}"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{StaticResource Muted}"/>
+    </Style>
+    <Style x:Key="FieldLabel" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource UiFont}"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Foreground" Value="{StaticResource Text}"/>
+        <Setter Property="Margin" Value="0,0,0,4"/>
+    </Style>
+
+    <!-- ============ CARTE ============ -->
+    <Style x:Key="Card" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource CardBg}"/>
+        <Setter Property="CornerRadius" Value="12"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Separator}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="16,12,16,16"/>
+    </Style>
+
+    <!-- ============ BOUTONS : une seule hierarchie de couleur ============ -->
+    <!-- Primaire : accent bleu. L'action principale de chaque vue. -->
+    <Style x:Key="PrimaryButton" TargetType="Button">
+        <Setter Property="FontFamily" Value="{StaticResource UiFont}"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="{StaticResource Accent}"/>
+        <Setter Property="Height" Value="38"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="8">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bd" Property="Background" Value="{StaticResource AccentHi}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="bd" Property="Background" Value="{StaticResource Separator}"/>
+                            <Setter Property="Foreground" Value="{StaticResource Slate}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Secondaire : gris clair discret -->
+    <Style x:Key="SecondaryButton" TargetType="Button" BasedOn="{StaticResource PrimaryButton}">
+        <Setter Property="Foreground" Value="{StaticResource Text}"/>
+        <Setter Property="Background" Value="{StaticResource SecondaryBtn}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="8">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bd" Property="Background" Value="{StaticResource SecondaryBtnHover}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="bd" Property="Background" Value="{StaticResource Separator}"/>
+                            <Setter Property="Foreground" Value="{StaticResource Slate}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Avertissement : ambre, uniquement quand un etat l'exige (reprise manuelle) -->
+    <Style x:Key="WarnButton" TargetType="Button" BasedOn="{StaticResource PrimaryButton}">
+        <Setter Property="Foreground" Value="{StaticResource Text}"/>
+        <Setter Property="Background" Value="{StaticResource Amber}"/>
+    </Style>
+
+    <!-- Petit bouton inline (Rafraichir, Effacer...) -->
+    <Style x:Key="TinyButton" TargetType="Button" BasedOn="{StaticResource SecondaryButton}">
+        <Setter Property="Height" Value="26"/>
+        <Setter Property="FontSize" Value="11"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="Padding" Value="10,0"/>
+    </Style>
+
+    <!-- ============ CHAMPS ============ -->
+    <Style x:Key="Field" TargetType="TextBox">
+        <Setter Property="FontFamily" Value="{StaticResource UiFont}"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="Padding" Value="6,3"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Separator}"/>
+    </Style>
+    <Style x:Key="FieldCombo" TargetType="ComboBox">
+        <Setter Property="FontFamily" Value="{StaticResource UiFont}"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="FieldPwd" TargetType="PasswordBox">
+        <Setter Property="FontFamily" Value="{StaticResource UiFont}"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="Padding" Value="6,3"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Separator}"/>
+    </Style>
+    <Style x:Key="FieldCheck" TargetType="CheckBox">
+        <Setter Property="FontFamily" Value="{StaticResource UiFont}"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Foreground" Value="{StaticResource Text}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+
+    <!-- ============ ITEM DE SIDEBAR ============ -->
+    <Style x:Key="NavItem" TargetType="RadioButton">
+        <Setter Property="GroupName" Value="nav"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Margin" Value="0,0,0,6"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Border x:Name="bd" Background="Transparent" CornerRadius="8" Padding="12,0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Ellipse x:Name="dot" Width="8" Height="8" Fill="{StaticResource Slate}"
+                                     VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <TextBlock x:Name="lbl" Text="{TemplateBinding Content}"
+                                       FontFamily="{StaticResource UiFont}" FontSize="13" FontWeight="SemiBold"
+                                       Foreground="{StaticResource Slate}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bd" Property="Background" Value="{StaticResource SidebarHover}"/>
+                            <Setter TargetName="lbl" Property="Foreground" Value="White"/>
+                            <Setter TargetName="dot" Property="Fill" Value="White"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="bd" Property="Background" Value="{StaticResource Accent}"/>
+                            <Setter TargetName="lbl" Property="Foreground" Value="White"/>
+                            <Setter TargetName="dot" Property="Fill" Value="White"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ============ PASTILLE DE STATUT ============ -->
+    <Style x:Key="Pill" TargetType="Border">
+        <Setter Property="CornerRadius" Value="13"/>
+        <Setter Property="Padding" Value="12,4"/>
+        <Setter Property="Background" Value="{StaticResource Muted}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+    </Style>
+    <Style x:Key="PillText" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource UiFont}"/>
+        <Setter Property="FontSize" Value="11"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+</ResourceDictionary>

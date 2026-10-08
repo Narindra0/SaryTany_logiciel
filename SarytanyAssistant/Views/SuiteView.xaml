@@ -1,0 +1,41 @@
+<UserControl x:Class="SarytanyAssistant.Views.SuiteView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:v="clr-namespace:SarytanyAssistant.Views">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Carte prerequis : dossier source + readiness (le bouton Demarrer
+             ne s'active que quand tous les emplacements et fichiers sont completes). -->
+        <Border Grid.Row="0" Style="{StaticResource Card}" Margin="0,0,0,12">
+            <StackPanel>
+                <TextBlock Text="Prerequis de l'installation" Style="{StaticResource CardTitle}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="Dossier source :" Style="{StaticResource FieldLabel}"
+                               VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="1" x:Name="LblSource" Text="Aucun dossier selectionne"
+                               Foreground="{StaticResource Muted}" VerticalAlignment="Center"
+                               TextTrimming="CharacterEllipsis" Margin="10,0,10,0"/>
+                    <Button Grid.Column="2" x:Name="BtnPickSource" Content="Choisir le dossier..."
+                            Style="{StaticResource SecondaryButton}" Click="PickSource_Click"/>
+                </Grid>
+                <TextBlock x:Name="LblReadiness" Margin="0,8,0,0" TextWrapping="Wrap"
+                           Text="Selectionnez le dossier source : la detection des modules et le bouton Demarrer s'activeront une fois tous les fichiers presents."
+                           Foreground="{StaticResource Muted}"/>
+                <TextBlock Margin="0,6,0,0" FontSize="11" TextWrapping="Wrap"
+                           Text="Secours : double-cliquez la ligne d'un module manquant pour renseigner directement son fichier."
+                           Foreground="{StaticResource Muted}"/>
+            </StackPanel>
+        </Border>
+
+        <v:RunViewControl Grid.Row="1" x:Name="Run"/>
+    </Grid>
+</UserControl>

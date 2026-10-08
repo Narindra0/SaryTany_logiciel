@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>SarytanyAssistant</RootNamespace>
+    <AssemblyName>SarytanyAssistant</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+    <Version>3.0.0.0</Version>
+    <Product>Sarytany Unified Deployment</Product>
+    <Company>Sarytany</Company>
+    <Description>Assistant deploiement PC + Bentley + SintegraLidar + Terra</Description>
+    <SatelliteResourceLanguages>fr</SatelliteResourceLanguages>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Management" Version="9.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- UseWPF retire System.IO des implicit usings : le reajouter globalement. -->
+    <Using Include="System.IO" />
+  </ItemGroup>
+
+</Project>

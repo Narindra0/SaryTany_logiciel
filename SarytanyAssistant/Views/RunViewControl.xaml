@@ -1,0 +1,114 @@
+<UserControl x:Class="SarytanyAssistant.Views.RunViewControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="24,20,24,16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>   <!-- carte statut -->
+            <RowDefinition Height="Auto"/>   <!-- liste des etapes -->
+            <RowDefinition Height="*"/>      <!-- journal -->
+            <RowDefinition Height="Auto"/>   <!-- barre d'actions -->
+        </Grid.RowDefinitions>
+
+        <!-- ===== CARTE DE STATUT ===== -->
+        <Border Grid.Row="0" Style="{StaticResource Card}" Padding="16,10,16,14">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock x:Name="LblStatusTitle" Text="Pret" Style="{StaticResource PageTitle}"/>
+                    <TextBlock x:Name="LblStatusDetail" Text="" FontSize="12"
+                               Foreground="{StaticResource Muted}" Margin="0,2,0,0" TextTrimming="CharacterEllipsis"/>
+                    <Grid Margin="0,10,0,0">
+                        <Border Height="8" CornerRadius="4" Background="#E9EEF4"/>
+                        <ProgressBar x:Name="Progress" Height="8" Value="0" Foreground="{StaticResource Accent}"
+                                     BorderThickness="0" Background="Transparent">
+                            <ProgressBar.Template>
+                                <ControlTemplate TargetType="ProgressBar">
+                                    <Border CornerRadius="4" Background="Transparent" ClipToBounds="True">
+                                        <Border x:Name="PART_Indicator" CornerRadius="4"
+                                                Background="{TemplateBinding Foreground}"
+                                                HorizontalAlignment="Left"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </ProgressBar.Template>
+                        </ProgressBar>
+                    </Grid>
+                </StackPanel>
+                <Border x:Name="PillBg" Grid.Column="1" Style="{StaticResource Pill}" VerticalAlignment="Top" Margin="0,4,0,0">
+                    <TextBlock x:Name="PillText" Text="EN ATTENTE" Style="{StaticResource PillText}"/>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- ===== LISTE DES ETAPES ===== -->
+        <Border Grid.Row="1" Style="{StaticResource Card}" Margin="0,12,0,0" Padding="8,4">
+            <ListView x:Name="StepList" BorderThickness="0">
+                <ListView.Resources>
+                    <Style TargetType="GridViewColumnHeader">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </Style>
+                </ListView.Resources>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="330" DisplayMemberBinding="{Binding Label}"/>
+                        <GridViewColumn Width="300" DisplayMemberBinding="{Binding Description}"/>
+                        <GridViewColumn Width="120" DisplayMemberBinding="{Binding Status}"/>
+                    </GridView>
+                </ListView.View>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Foreground" Value="{Binding RowBrush}"/>
+                        <Setter Property="Height" Value="26"/>
+                        <Setter Property="Focusable" Value="False"/>
+                        <Setter Property="Padding" Value="8,0"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </Border>
+
+        <!-- ===== JOURNAL ===== -->
+        <Border Grid.Row="2" Style="{StaticResource Card}" Margin="0,12,0,0" Padding="0"
+                Background="{StaticResource LogBg}" BorderThickness="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Margin="16,8,8,0">
+                    <TextBlock Text="JOURNAL D'EXECUTION" FontSize="11" FontWeight="SemiBold"
+                               Foreground="#788496" VerticalAlignment="Center"/>
+                    <Button Content="Effacer" Style="{StaticResource TinyButton}" Width="70"
+                            HorizontalAlignment="Right" Background="#262D3A" Foreground="#A5B2C4"
+                            Click="ClearLog_Click"/>
+                </Grid>
+                <ScrollViewer x:Name="LogScroll" Grid.Row="1" Margin="16,6,8,10"
+                              VerticalScrollBarVisibility="Auto">
+                    <ItemsControl x:Name="LogLines">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock FontFamily="{StaticResource MonoFont}" FontSize="12"
+                                           Foreground="{Binding Brush}" TextWrapping="Wrap">
+                                    <Run Text="{Binding Time, Mode=OneWay}"/><Run Text="   "/><Run Text="{Binding Text, Mode=OneWay}"/>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+
+        <!-- ===== BARRE D'ACTIONS : primaire bleu d'abord, secondaires grises ===== -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,12,0,0">
+            <Button x:Name="BtnGo" Style="{StaticResource PrimaryButton}" Width="300"
+                    Content="Lancer" Click="BtnGo_Click"/>
+            <Button x:Name="BtnExtra" Style="{StaticResource SecondaryButton}" Width="330" Margin="10,0,0,0"
+                    Content="" Click="BtnExtra_Click"/>
+            <Button x:Name="BtnResume" Style="{StaticResource SecondaryButton}" Width="260" Margin="10,0,0,0"
+                    Content="Reprendre apres action manuelle" IsEnabled="False" Click="BtnResume_Click"/>
+            <Button x:Name="BtnCancel" Style="{StaticResource SecondaryButton}" Width="120" Margin="10,0,0,0"
+                    Content="Annuler" IsEnabled="False" Click="BtnCancel_Click"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

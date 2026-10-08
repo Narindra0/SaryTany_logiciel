@@ -1,0 +1,31 @@
+# ===== Dossiers de build .NET / WPF (genere par "dotnet build") =====
+bin/
+obj/
+.publish/
+artifacts/
+TestResults/
+
+# ===== Visual Studio =====
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# ===== Livrables publies =====
+# Les exes de release ne vont PAS dans le git : trop lourds (127 Mo > limite
+# GitHub de 100 Mo par fichier). Ils sont distribues via GitHub Releases
+# (onglet Releases du depot, glisser-deposer des exes).
+SarytanyAssistant/release/
+
+# ===== Fichiers temporaires divers =====
+*.tmp
+*.log
+~$*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ===== Dossiers/outils locaux =====
+.qoder/
+Temp/
